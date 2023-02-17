@@ -1,0 +1,70 @@
+definitions:
+  api.LogPostSchema:
+    properties:
+      message:
+        example: Error!!
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/log:
+    get:
+      consumes:
+      - '*/*'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get all
+      tags:
+      - log
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: schema
+        in: body
+        name: log
+        required: true
+        schema:
+          $ref: '#/definitions/api.LogPostSchema'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Create Log
+      tags:
+      - log
+  /v1/log/{id}:
+    get:
+      consumes:
+      - '*/*'
+      parameters:
+      - description: id of db log
+        in: path
+        name: id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get log by id
+      tags:
+      - log
+  /v1/status:
+    get:
+      consumes:
+      - '*/*'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Status
+      tags:
+      - log
+swagger: "2.0"
