@@ -19,7 +19,8 @@ func main() {
 func run() error {
 	router := gin.Default()
 	router.Use(cors.Default())
-	logService := api2.NewLogService(api2.NewFakeRepo())
+	repo := api2.NewFakeRepo()
+	logService := api2.NewLogService(repo)
 	server := app.NewServer(router, logService)
 	err := server.Run()
 	if err != nil {

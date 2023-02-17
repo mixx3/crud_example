@@ -2,28 +2,32 @@ package api
 
 type LogService interface {
 	Create(schema *LogPostSchema) error
-	GetAll() (*[]LogPostSchema, error)
+	GetAll() ([]*LogPostSchema, error)
 	Get(id int) (*LogPostSchema, error)
 	Delete(id int) error
 }
 
-type logService struct {
+type fakeLogService struct {
 	logRepo LogRepository
 }
 
 func NewLogService(logRepo LogRepository) LogService {
-	return &logService{logRepo}
+	return &fakeLogService{logRepo}
 }
 
-func (s *logService) Create(schema *LogPostSchema) error {
+func (s *fakeLogService) Create(schema *LogPostSchema) error {
+	s.logRepo.Add(schema)
 	return nil
 }
 
-func (s *logService) GetAll() (*[]LogPostSchema, error) {
-	return nil, nil
+func (s *fakeLogService) GetAll() ([]*LogPostSchema, error) {
+	res := make([]*LogPostSchema, 0)
+	a, err := s.logRepo.Get(0)
+	res = append(res, a)
+	return res, err
 }
 
-func (s *logService) Get(id int) (*LogPostSchema, error) {
+func (s *fakeLogService) Get(id int) (*LogPostSchema, error) {
 	res, err := s.logRepo.Get(id)
 	if err != nil {
 		return nil, err
@@ -31,7 +35,7 @@ func (s *logService) Get(id int) (*LogPostSchema, error) {
 	return res, nil
 }
 
-func (s *logService) Delete(id int) error {
+func (s *fakeLogService) Delete(id int) error {
 	err := s.logRepo.Delete(id)
 	return err
 }
