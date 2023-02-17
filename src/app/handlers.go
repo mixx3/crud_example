@@ -15,7 +15,7 @@ import (
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router / [get]
+// @Router /v1/api/status [get]
 func (s *Server) ApiStatus() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Header("Content-Type", "application/json")
@@ -29,6 +29,7 @@ func (s *Server) ApiStatus() gin.HandlerFunc {
 	}
 }
 
+// @
 func (s *Server) CreateLog() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Header("Content-Type", "application/json")
