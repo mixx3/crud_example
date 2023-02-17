@@ -15,6 +15,7 @@ func (s *Server) Routes() *gin.Engine {
 		log := v1.Group("/log")
 		log.POST("", s.CreateLog())
 		log.GET("/:id", s.GetById())
+		log.GET("", s.GetAll())
 	}
 
 	return router

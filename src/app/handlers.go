@@ -8,10 +8,9 @@ import (
 	"strconv"
 )
 
-// HealthCheck godoc
-// @Summary Show the status of server.
-// @Description get the status of server.
-// @Tags root
+// Log godoc
+// @Summary Status
+// @Tags log
 // @Accept */*
 // @Produce json
 // @Success 200
@@ -29,7 +28,13 @@ func (s *Server) ApiStatus() gin.HandlerFunc {
 	}
 }
 
-// @
+// Log godoc
+// @Summary Create Log
+// @Tags log
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /v1/api/log [post]
 func (s *Server) CreateLog() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Header("Content-Type", "application/json")
@@ -60,6 +65,13 @@ func (s *Server) CreateLog() gin.HandlerFunc {
 	}
 }
 
+// HealthCheck godoc
+// @Summary Get log by id
+// @Tags log
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /v1/api/log/{id} [get]
 func (s *Server) GetById() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Header("Content-Type", "application/json")
@@ -73,6 +85,26 @@ func (s *Server) GetById() gin.HandlerFunc {
 		if err != nil {
 			log.Printf("service error: %v", err)
 			c.JSON(http.StatusInternalServerError, nil)
+			return
+		}
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+// HealthCheck godoc
+// @Summary Get all
+// @Tags log
+// @Accept */*
+// @Produce json
+// @Success 200
+// @Router /v1/api/log [get]
+func (s *Server) GetAll() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Header("Content-Type", "application/json")
+		res, err := s.logService.GetAll()
+		if err != nil {
+			log.Printf("service error: %v", err)
+			c.JSON(http.StatusNotFound, nil)
 			return
 		}
 		c.JSON(http.StatusOK, res)
