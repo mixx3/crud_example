@@ -1,7 +1,7 @@
 package app
 
 import (
-	"crud_example/src/api"
+	"crud_example/pkg/api"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -14,27 +14,27 @@ import (
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /v1/api/status [get]
+// @Router /v1/status [get]
 func (s *Server) ApiStatus() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Header("Content-Type", "application/json")
 
 		response := map[string]string{
 			"status": "success",
-			"data":   "weight tracker API running smoothly",
 		}
 
 		c.JSON(http.StatusOK, response)
 	}
 }
 
-// Log godoc
+// CreateLog Log godoc
 // @Summary Create Log
 // @Tags log
-// @Accept */*
+// @Accept json
 // @Produce json
+// @Param log body api.LogPostSchema true "schema"
 // @Success 200
-// @Router /v1/api/log [post]
+// @Router /v1/log [post]
 func (s *Server) CreateLog() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Header("Content-Type", "application/json")
@@ -65,13 +65,14 @@ func (s *Server) CreateLog() gin.HandlerFunc {
 	}
 }
 
-// HealthCheck godoc
+// GetById HealthCheck godoc
 // @Summary Get log by id
 // @Tags log
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /v1/api/log/{id} [get]
+// @Param        id    path     int  0  "id of db log"
+// @Router /v1/log/{id} [get]
 func (s *Server) GetById() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Header("Content-Type", "application/json")
@@ -91,13 +92,13 @@ func (s *Server) GetById() gin.HandlerFunc {
 	}
 }
 
-// HealthCheck godoc
+// GetAll HealthCheck godoc
 // @Summary Get all
 // @Tags log
 // @Accept */*
 // @Produce json
 // @Success 200
-// @Router /v1/api/log [get]
+// @Router /v1/log [get]
 func (s *Server) GetAll() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Header("Content-Type", "application/json")

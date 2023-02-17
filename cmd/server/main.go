@@ -1,8 +1,8 @@
 package main
 
 import (
-	api2 "crud_example/src/api"
-	"crud_example/src/app"
+	api2 "crud_example/pkg/api"
+	"crud_example/pkg/app"
 	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

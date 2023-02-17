@@ -1,2 +1,2 @@
 swag:
-	swag init -g src/app/handlers.go --output docs/
+	swag init -g pkg/app/handlers.go --output docs/

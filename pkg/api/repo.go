@@ -12,7 +12,10 @@ type FakeLogRepo struct {
 }
 
 func NewFakeRepo() *FakeLogRepo {
-	return &FakeLogRepo{idIncr: 0}
+	return &FakeLogRepo{
+		container: make(map[int]*LogPostSchema, 0),
+		idIncr:    0,
+	}
 }
 
 func (r *FakeLogRepo) Add(schema *LogPostSchema) error {

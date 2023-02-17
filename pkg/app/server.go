@@ -1,7 +1,7 @@
 package app
 
 import (
-	"crud_example/src/api"
+	"crud_example/pkg/api"
 	"github.com/gin-gonic/gin"
 
 	"log"
