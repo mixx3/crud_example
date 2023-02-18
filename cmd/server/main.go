@@ -17,12 +17,16 @@ func main() {
 }
 
 func run() error {
+	err := api2.NewEnvParser(".env").Parse()
+	if err != nil {
+		return err
+	}
 	router := gin.Default()
 	router.Use(cors.Default())
 	repo := api2.NewFakeRepo()
 	logService := api2.NewLogService(repo)
 	server := app.NewServer(router, logService)
-	err := server.Run()
+	err = server.Run()
 	if err != nil {
 		return err
 	}
