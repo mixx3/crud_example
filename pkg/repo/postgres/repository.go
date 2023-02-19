@@ -34,9 +34,9 @@ func (r *PgRepository) Add(schema *api.LogPostSchema) error {
 }
 
 func (r *PgRepository) Get(id int) (*api.LogGetSchema, error) {
-	res := &api.LogGetSchema{ID: id}
-	r.db.Model(&models.Log{}).Find(&res)
-	return res, nil
+	log := models.Log{}
+	r.db.First(&log, id)
+	return &api.LogGetSchema{ID: id, Message: log.Message, DtCreated: log.CreatedAt}, nil
 }
 
 func (r *PgRepository) Delete(id int) error {
