@@ -35,7 +35,9 @@ func (r *PgRepository) Add(schema *api.LogPostSchema) error {
 
 func (r *PgRepository) Get(id int) (*api.LogGetSchema, error) {
 	log := models.Log{}
-	r.db.First(&log, id)
+	if err := r.db.Where("id = ?", id).First(&log); errors.Is(err.Error, gorm.ErrRecordNotFound) {
+		return nil, errors.New("not found")
+	}
 	return &api.LogGetSchema{ID: id, Message: log.Message, DtCreated: log.CreatedAt}, nil
 }
 

@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-// Log godoc
+// ApiStatus Log godoc
 // @Summary Status
 // @Tags log
 // @Accept */*
