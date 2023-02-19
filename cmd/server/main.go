@@ -3,6 +3,7 @@ package main
 import (
 	api2 "crud_example/pkg/api"
 	"crud_example/pkg/app"
+	pg "crud_example/pkg/repo/postgres"
 	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -23,7 +24,7 @@ func run() error {
 	}
 	router := gin.Default()
 	router.Use(cors.Default())
-	repo := api2.NewFakeRepo()
+	repo := pg.NewPgRepository(os.Getenv("DB_DSN"))
 	logService := api2.NewLogService(repo)
 	server := app.NewServer(router, logService)
 	err = server.Run()

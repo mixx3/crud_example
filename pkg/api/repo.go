@@ -2,7 +2,7 @@ package api
 
 type LogRepository interface {
 	Add(schema *LogPostSchema) error
-	Get(id int) (*LogPostSchema, error)
+	Get(id int) (*LogGetSchema, error)
 	Delete(id int) error
 }
 
@@ -24,8 +24,9 @@ func (r *FakeLogRepo) Add(schema *LogPostSchema) error {
 	return nil
 }
 
-func (r *FakeLogRepo) Get(id int) (*LogPostSchema, error) {
-	return r.container[id], nil
+func (r *FakeLogRepo) Get(id int) (*LogGetSchema, error) {
+	res := &LogGetSchema{Message: r.container[id].Message, ID: id}
+	return res, nil
 }
 
 func (r *FakeLogRepo) Delete(id int) error {
